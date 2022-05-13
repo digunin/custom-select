@@ -1,10 +1,8 @@
-import { useState } from 'react'
-
 function Option({ value, text, onclick, isSelected = false }) {
   let className = isSelected ? 'option-selected' : ''
   return (
     <div
-      className={className}
+      className={`option-element ${className}`}
       onClick={() => onclick(value, text)}
       data-testid="single-option"
       value={value}
