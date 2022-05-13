@@ -1,7 +1,7 @@
 import { cleanup, render, screen } from '@testing-library/react'
 import Option from './Option'
 
-describe('render test', () => {
+describe('<Option /> render test', () => {
   let optionElement
   const handleClick = jest.fn()
   beforeEach(() => {
