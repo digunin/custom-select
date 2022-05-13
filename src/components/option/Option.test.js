@@ -1,10 +1,11 @@
-import { render, screen } from '@testing-library/react'
+import { cleanup, render, screen } from '@testing-library/react'
 import Option from './Option'
 
 describe('render test', () => {
   let optionElement
   const handleClick = jest.fn()
   beforeEach(() => {
+    cleanup()
     render(<Option text="one" value="0" onclick={handleClick} />)
     optionElement = null
   })
@@ -18,5 +19,15 @@ describe('render test', () => {
     optionElement.click()
     expect(handleClick).toBeCalled()
     expect(handleClick).toBeCalledTimes(1)
+  })
+  test('<Option /> class name', () => {
+    optionElement = screen.queryByTestId('single-option')
+    expect(optionElement).not.toHaveClass('option-selected')
+    cleanup()
+    render(
+      <Option text="two" value="1" onclick={handleClick} isSelected={true} />
+    )
+    optionElement = screen.queryByTestId('single-option')
+    expect(optionElement).toHaveClass('option-selected')
   })
 })
