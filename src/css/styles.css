@@ -1,18 +1,19 @@
 :root{
     --active-color: rgb(70, 136, 236);
-    --light-grey-color: rgb(240,240,240)
+    --light-grey-color: rgb(200,200,200)
 }
 
 .App{
     margin: 5em auto;
 }
 
-.option-selected{
-    background-color: var(--active-color);
-}
 
 .option-element:nth-child(2n){
     background-color: var(--light-grey-color);
+}
+
+.option-element.option-selected{
+    background-color: var(--active-color);
 }
 
 .select-input{

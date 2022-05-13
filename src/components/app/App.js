@@ -10,15 +10,17 @@ function App() {
     { value: 4, text: '5' },
   ]
 
-  const [selectedValues, setSelectedValues] = useState([])
+  const [selectedValues, setSelectedValues] = useState([0, 1, 2])
 
-  const handleClick = () => {}
+  const handleClick = (arr) => {
+    // console.log(arr.join(','))
+  }
   return (
     <div data-testid="app-id" className="App">
       <Select
         options={options}
         selectedValues={selectedValues}
-        onclick={handleClick}
+        onchange={handleClick}
       />
       React
     </div>
