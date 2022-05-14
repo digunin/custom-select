@@ -21,14 +21,15 @@ describe('App render test', () => {
     let selectElement = screen.queryByTestId('select-testid')
     expect(selectElement).toBeInTheDocument()
     let optionElements = screen.queryAllByTestId('single-option')
-    expect(optionElements.length).toBe(5)
+    expect(optionElements.length).toBe(10)
   })
   test('<App /> test click by option', () => {
-    expect(screen.queryByText('1')).toHaveClass('option-selected')
-    expect(screen.queryByText('2')).toHaveClass('option-selected')
-    expect(screen.queryByText('3')).toHaveClass('option-selected')
-    expect(screen.queryByText('4')).not.toHaveClass('option-selected')
-    expect(screen.queryByText('5')).not.toHaveClass('option-selected')
+    let values = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+    values.forEach((value) => {
+      if (['1', '2', '3', '6', '7', '8'].includes(value))
+        expect(screen.queryByText(value)).toHaveClass('option-selected')
+    })
+
     let optionElements = screen.queryByText('1')
     act(() => {
       optionElements.click()
