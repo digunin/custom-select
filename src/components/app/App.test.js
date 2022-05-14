@@ -24,22 +24,33 @@ describe('App render test', () => {
     expect(optionElements.length).toBe(10)
   })
   test('<App /> test click by option', () => {
-    let values = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
-    values.forEach((value) => {
-      if (['1', '2', '3', '6', '7', '8'].includes(value))
-        expect(screen.queryByText(value)).toHaveClass('option-selected')
+    let selected_text = ['1', '2', '3', '6', '7', '8']
+    let not_selected_text = ['4', '5', '9', '10']
+
+    selected_text.forEach((value) => {
+      expect(screen.queryByText(value)).toHaveClass('option-selected')
     })
 
-    let optionElements = screen.queryByText('1')
-    act(() => {
-      optionElements.click()
+    not_selected_text.forEach((value) => {
+      expect(screen.queryByText(value)).not.toHaveClass('option-selected')
     })
-    optionElements = screen.queryByText('1')
-    expect(optionElements).not.toHaveClass('option-selected')
-    optionElements = screen.queryByText('4')
-    act(() => {
-      optionElements.click()
+
+    selected_text.forEach((value) => {
+      let optionElements = screen.queryByText(value)
+      act(() => {
+        optionElements.click()
+      })
+      optionElements = screen.queryByText(value)
+      expect(optionElements).not.toHaveClass('option-selected')
     })
-    expect(optionElements).toHaveClass('option-selected')
+
+    not_selected_text.forEach((value) => {
+      let optionElements = screen.queryByText(value)
+      act(() => {
+        optionElements.click()
+      })
+      optionElements = screen.queryByText(value)
+      expect(optionElements).toHaveClass('option-selected')
+    })
   })
 })

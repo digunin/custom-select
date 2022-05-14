@@ -1,12 +1,25 @@
+*{
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
+}
+
 :root{
     --active-color: rgb(70, 136, 236);
-    --light-grey-color: rgb(200,200,200)
+    --light-grey-color: rgb(230,230,230);
+    --option-height: 1.4rem;
+    --option-pad: 0.2rem
 }
 
 .App{
     margin: 5em auto;
 }
 
+.option-element{
+    height: var(--option-height);
+    padding: var(--option-pad);
+    font-size: 1rem;
+}
 
 .option-element:nth-child(2n){
     background-color: var(--light-grey-color);
@@ -14,9 +27,10 @@
 
 .option-element.option-selected{
     background-color: var(--active-color);
+    color:white
 }
 
 .select-input{
-    border: 1px solid grey;
-    width:200px
+    width:200px;
+    box-shadow: 0 0 1px 0 black;
 }
