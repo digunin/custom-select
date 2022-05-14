@@ -3,7 +3,7 @@ function Option({ value, text, onclick, isSelected = false }) {
   return (
     <div
       className={`option-element ${className}`}
-      onClick={() => onclick(value, text)}
+      onClick={(e) => onclick(value, text, e.shiftKey)}
       data-testid="single-option"
       value={value}
     >
