@@ -15,6 +15,19 @@ describe('App render test', () => {
       })
     })
   }
+  function checkDiapason(start, end) {
+    let el = screen.getByText(`${start}`)
+    fireEvent.click(el)
+    el = screen.getByText(`${end}`)
+    fireEvent.click(el, { shiftKey: true })
+    if (end < start) {
+      ;[start, end] = [end, start]
+    }
+    for (let i = start; i <= end; i++) {
+      let el = screen.getByText(`${i}`)
+      expect(el).toHaveClass('option-selected')
+    }
+  }
   beforeEach(() => {
     cleanup()
     render(<App />)
@@ -70,33 +83,109 @@ describe('App render test', () => {
       let el = screen.getByText(`${i}`)
       expect(el).not.toHaveClass('option-selected')
     }
-    function checkDiapason(start, end) {
-      let el = screen.getByText(`${start}`)
-      fireEvent.click(el)
-      el = screen.getByText(`${end}`)
-      fireEvent.click(el, { shiftKey: true })
-      if (end < start) {
-        ;[start, end] = [end, start]
-      }
-      for (let i = start; i <= end; i++) {
-        let el = screen.getByText(`${i}`)
-        expect(el).toHaveClass('option-selected')
-      }
-    }
+  })
+
+  test('<App /> click with shift - test some ranges', () => {
+    renderAndResetSelected()
     checkDiapason(2, 5)
     renderAndResetSelected()
     checkDiapason(1, 10)
+    renderAndResetSelected()
+    checkDiapason(1, 6)
     renderAndResetSelected()
     checkDiapason(6, 3)
     renderAndResetSelected()
     checkDiapason(7, 1)
     renderAndResetSelected()
-    checkDiapason(1, 5)
-    checkDiapason(7, 9)
-    ;[(1, 2, 3, 4, 5, 7, 8, 9)].forEach((i) => {
+    checkDiapason(4, 10)
+  })
+
+  test('<App /> test more then one diapason selection', () => {
+    renderAndResetSelected()
+    checkDiapason(5, 1)
+    checkDiapason(9, 7)
+    ;[1, 2, 3, 4, 5, 7, 8, 9].forEach((i) => {
       expect(screen.getByText(`${i}`)).toHaveClass('option-selected')
     })
     expect(screen.getByText('6')).not.toHaveClass('option-selected')
     expect(screen.getByText('10')).not.toHaveClass('option-selected')
+
+    cleanup()
+    render(<App />)
+    fireEvent.click(screen.getByText('3'))
+    fireEvent.click(screen.getByText('5'), { shiftKey: true })
+    ;[1, 2, 4, 5, 6, 7, 8].forEach((i) => {
+      expect(screen.getByText(`${i}`)).toHaveClass('option-selected')
+    })
+    ;[3, 9, 10].forEach((i) => {
+      expect(screen.getByText(`${i}`)).not.toHaveClass('option-selected')
+    })
+
+    cleanup()
+    render(<App />)
+    fireEvent.click(screen.getByText('5'))
+    fireEvent.click(screen.getByText('3'), { shiftKey: true })
+    ;[1, 2, 3, 4, 5, 6, 7, 8].forEach((i) => {
+      expect(screen.getByText(`${i}`)).toHaveClass('option-selected')
+    })
+    ;[9, 10].forEach((i) => {
+      expect(screen.getByText(`${i}`)).not.toHaveClass('option-selected')
+    })
+
+    cleanup()
+    render(<App />)
+    fireEvent.click(screen.getByText('9'), { shiftKey: true })
+    fireEvent.click(screen.getByText('1'), { shiftKey: true })
+    ;[1, 2, 3, 4, 5, 6, 7, 8, 9].forEach((i) => {
+      expect(screen.getByText(`${i}`)).toHaveClass('option-selected')
+    })
+    ;[10].forEach((i) => {
+      expect(screen.getByText(`${i}`)).not.toHaveClass('option-selected')
+    })
+
+    cleanup()
+    render(<App />)
+    fireEvent.click(screen.getByText('1'), { shiftKey: true })
+    fireEvent.click(screen.getByText('9'), { shiftKey: true })
+    ;[2, 3, 4, 5, 6, 7, 8, 9].forEach((i) => {
+      expect(screen.getByText(`${i}`)).toHaveClass('option-selected')
+    })
+    ;[1, 10].forEach((i) => {
+      expect(screen.getByText(`${i}`)).not.toHaveClass('option-selected')
+    })
+
+    cleanup()
+    render(<App />)
+    fireEvent.click(screen.getByText('1'))
+    fireEvent.click(screen.getByText('6'))
+    fireEvent.click(screen.getByText('1'), { shiftKey: true })
+    ;[1, 2, 3, 4, 5, 7, 8].forEach((i) => {
+      expect(screen.getByText(`${i}`)).toHaveClass('option-selected')
+    })
+    ;[6, 9, 10].forEach((i) => {
+      expect(screen.getByText(`${i}`)).not.toHaveClass('option-selected')
+    })
+
+    cleanup()
+    render(<App />)
+    fireEvent.click(screen.getByText('3'))
+    fireEvent.click(screen.getByText('4'), { shiftKey: true })
+    ;[1, 2, 4, 6, 7, 8].forEach((i) => {
+      expect(screen.getByText(`${i}`)).toHaveClass('option-selected')
+    })
+    ;[3, 5, 9, 10].forEach((i) => {
+      expect(screen.getByText(`${i}`)).not.toHaveClass('option-selected')
+    })
+
+    cleanup()
+    render(<App />)
+    fireEvent.click(screen.getByText('3'))
+    fireEvent.click(screen.getByText('3'), { shiftKey: true })
+    ;[1, 2, 3, 6, 7, 8].forEach((i) => {
+      expect(screen.getByText(`${i}`)).toHaveClass('option-selected')
+    })
+    ;[4, 5, 9, 10].forEach((i) => {
+      expect(screen.getByText(`${i}`)).not.toHaveClass('option-selected')
+    })
   })
 })

@@ -7,7 +7,7 @@
 :root{
     --active-color: rgb(70, 136, 236);
     --light-grey-color: rgb(230,230,230);
-    --option-height: 1.2rem;
+    --option-height: 1.15rem;
     --option-pad: 0.2rem
 }
 
@@ -18,6 +18,7 @@
 .option-element{
     height: var(--option-height);
     padding: var(--option-pad);
+    font-family: monospace;
     font-size: 0.8rem;
 }
 

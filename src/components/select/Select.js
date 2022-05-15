@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Option from '../option/Option'
 import useSelect from './useSelect'
 
-function Select({ options = [], selectedValues = [], size = 5, onchange }) {
+function Select({ options = [], selectedValues = [], size = 10, onchange }) {
   const { selectedOptions, onclick } = useSelect(selectedValues, onchange)
 
   return (

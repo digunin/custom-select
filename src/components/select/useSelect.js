@@ -23,7 +23,14 @@ function useSelect(selectedValues, onchange) {
     if (shiftKey && lastValue !== false) {
       let start = lastValue
       let end = value
-      if (value < lastValue) {
+      if (!selectedOptions.includes(lastValue)) {
+        if (start < end) {
+          start++
+        } else if (start > end) {
+          start--
+        }
+      }
+      if (end < start) {
         ;[start, end] = [end, start]
       }
       let acc = []
