@@ -39,7 +39,9 @@ function useSelect(selectedValues, onchange) {
           acc.push(i)
         }
       }
+      setLastValue(false)
       setSelectedOptions([...selectedOptions, ...acc])
+      onchange([...selectedOptions, ...acc])
     } else {
       setLastValue(value)
       toggleValue(value)
