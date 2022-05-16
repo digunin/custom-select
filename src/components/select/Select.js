@@ -9,7 +9,11 @@ function Select({
   disabled = false,
   onchange,
 }) {
-  const { selectedOptions, onclick } = useSelect(selectedValues, onchange)
+  const { selectedOptions, onclick } = useSelect(
+    selectedValues,
+    onchange,
+    multiple
+  )
 
   return (
     <div

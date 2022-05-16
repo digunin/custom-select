@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-function useSelect(selectedValues, onchange) {
+function useSelect(selectedValues, onchange, multiple) {
   const [selectedOptions, setSelectedOptions] = useState([])
   const [lastValue, setLastValue] = useState(false)
 
@@ -20,6 +20,11 @@ function useSelect(selectedValues, onchange) {
   }, [JSON.stringify(selectedValues)])
 
   function onclick(value, text, shiftKey) {
+    if (!multiple) {
+      setSelectedOptions([value])
+      onchange([value])
+      return
+    }
     if (shiftKey && lastValue !== false) {
       let start = lastValue
       let end = value
