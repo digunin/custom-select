@@ -7,6 +7,7 @@
 :root{
     --active-color: rgb(70, 136, 236);
     --light-grey-color: rgb(230,230,230);
+    --disabled-color:rgb(200,200,200);
     --option-height: 1.15rem;
     --option-pad: 0.2rem
 }
@@ -34,4 +35,11 @@
 .select-input{
     width:200px;
     box-shadow: 0 0 1px 0 black;
+}
+
+.select-disabled{
+    color:var(--disabled-color)
+}
+.select-disabled .option-selected{
+    background-color: var(--disabled-color)
 }

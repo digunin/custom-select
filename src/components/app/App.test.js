@@ -6,6 +6,7 @@ describe('App render test', () => {
   let selected_text = ['1', '2', '3', '6', '7', '8']
   let not_selected_text = ['4', '5', '9', '10']
   let appElement
+
   function renderAndResetSelected() {
     cleanup()
     render(<App />)
@@ -15,6 +16,7 @@ describe('App render test', () => {
       })
     })
   }
+
   function checkDiapason(start, end) {
     let el = screen.getByText(`${start}`)
     fireEvent.click(el)
@@ -28,25 +30,30 @@ describe('App render test', () => {
       expect(el).toHaveClass('option-selected')
     }
   }
+
   beforeEach(() => {
     cleanup()
     render(<App />)
     appElement = null
   })
+
   test('renders <App /> (by text)', () => {
     appElement = screen.getByText(/react/i)
     expect(appElement).toBeInTheDocument()
   })
+
   test('renders <App /> (by test id)', () => {
     appElement = screen.queryByTestId('app-id')
     expect(appElement).toBeInTheDocument()
   })
+
   test('<App /> check child', () => {
     let selectElement = screen.queryByTestId('select-testid')
     expect(selectElement).toBeInTheDocument()
     let optionElements = screen.queryAllByTestId('single-option')
     expect(optionElements.length).toBe(10)
   })
+
   test('<App /> test click by option', () => {
     selected_text.forEach((value) => {
       expect(screen.queryByText(value)).toHaveClass('option-selected')
@@ -74,6 +81,7 @@ describe('App render test', () => {
       expect(optionElements).toHaveClass('option-selected')
     })
   })
+
   test('<App /> click with shift', () => {
     selected_text.forEach((text) => {
       let el = screen.getByText(text)

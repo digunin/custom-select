@@ -12,7 +12,8 @@ function Select({
   const { selectedOptions, onclick } = useSelect(
     selectedValues,
     onchange,
-    multiple
+    multiple,
+    disabled
   )
 
   return (
@@ -21,7 +22,7 @@ function Select({
         height: `calc(${size} * var(--option-height)`,
         overflowY: 'auto',
       }}
-      className="select-input"
+      className={disabled ? 'select-input select-disabled' : 'select-input'}
       data-testid="select-testid"
     >
       {options.map(({ value, text }, i) => {
