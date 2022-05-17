@@ -1,37 +1,35 @@
 import { useEffect, useState } from 'react'
 
-function useSelect(selectedValues, onchange, multiple, disabled) {
-  const [selectedOptions, setSelectedOptions] = useState([])
+function useSelect(options, selectedValues, onchange, multiple, disabled) {
   const [lastValue, setLastValue] = useState(false)
 
   function toggleValue(value) {
-    let index = selectedOptions.indexOf(value)
+    let index = selectedValues.indexOf(value)
     if (index === -1) {
-      selectedOptions.push(value)
-      setSelectedOptions([...selectedOptions])
+      selectedValues.push(value)
+      onchange([...selectedValues])
     } else {
-      selectedOptions.splice(index, 1)
-      setSelectedOptions([...selectedOptions])
+      selectedValues.splice(index, 1)
+      onchange([...selectedValues])
     }
   }
 
-  useEffect(() => {
-    setSelectedOptions([...selectedValues])
-  }, [JSON.stringify(selectedValues)])
+  // useEffect(() => {
+  //   setLastValue(false)
+  // }, [JSON.stringify(selectedValues)])
 
   function onclick(value, text, shiftKey) {
     if (disabled) {
       return
     }
     if (!multiple) {
-      setSelectedOptions([value])
       onchange([value])
       return
     }
     if (shiftKey && lastValue !== false) {
       let start = lastValue
       let end = value
-      if (!selectedOptions.includes(lastValue)) {
+      if (!selectedValues.includes(lastValue)) {
         if (start < end) {
           start++
         } else if (start > end) {
@@ -43,21 +41,19 @@ function useSelect(selectedValues, onchange, multiple, disabled) {
       }
       let acc = []
       for (let i = start; i <= end; i++) {
-        if (!selectedOptions.includes(i)) {
+        if (!selectedValues.includes(i)) {
           acc.push(i)
         }
       }
       setLastValue(false)
-      setSelectedOptions([...selectedOptions, ...acc])
-      onchange([...selectedOptions, ...acc])
+      onchange([...selectedValues, ...acc])
     } else {
       setLastValue(value)
       toggleValue(value)
-      onchange([...selectedOptions])
     }
   }
 
-  return { onclick, selectedOptions }
+  return { onclick }
 }
 
 export default useSelect

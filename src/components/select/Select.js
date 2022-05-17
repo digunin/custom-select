@@ -9,13 +9,13 @@ function Select({
   disabled = false,
   onchange,
 }) {
-  const { selectedOptions, onclick } = useSelect(
+  const { onclick } = useSelect(
+    options,
     selectedValues,
     onchange,
     multiple,
     disabled
   )
-
   return (
     <div
       style={{
@@ -26,7 +26,7 @@ function Select({
       data-testid="select-testid"
     >
       {options.map(({ value, text }, i) => {
-        let selected = selectedOptions.includes(value)
+        let selected = selectedValues.includes(value)
         return (
           <Option
             key={`${i}-${value}`}

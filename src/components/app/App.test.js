@@ -166,4 +166,43 @@ describe('App render test', () => {
     fireEvent.click(screen.getByText('3'), { shiftKey: true })
     checkSelected([1, 2, 3, 6, 7, 8], [4, 5, 9, 10])
   })
+
+  test('<Select /> check selected', () => {
+    let optionElement = screen.queryByText('1')
+    expect(optionElement).toHaveClass('option-selected')
+    optionElement = screen.queryByText('2')
+    expect(optionElement).toHaveClass('option-selected')
+    optionElement = screen.queryByText('3')
+    expect(optionElement).toHaveClass('option-selected')
+    optionElement = screen.queryByText('4')
+    expect(optionElement).not.toHaveClass('option-selected')
+    optionElement = screen.queryByText('5')
+    expect(optionElement).not.toHaveClass('option-selected')
+  })
+
+  test('check single selection', () => {
+    fireEvent.click(screen.getByText('4'))
+    checkSelected([1, 2, 3, 4, 6, 7, 8], [5, 9, 10])
+
+    cleanup()
+    render(<App multiple={false} />)
+    fireEvent.click(screen.getByText('4'))
+    checkSelected([4], [1, 2, 3, 5, 6, 7, 8, 9, 10])
+
+    fireEvent.click(screen.getByText('1'))
+    checkSelected([1], [2, 3, 4, 5, 6, 7, 8, 9, 10])
+  })
+
+  test('chek "disabled" mode', () => {
+    cleanup()
+    render(<App disabled={true} />)
+    expect(screen.getByTestId('select-testid')).toHaveClass('select-disabled')
+    checkSelected([1, 2, 3, 6, 7, 8], [4, 5, 9, 10])
+
+    fireEvent.click(screen.getByText('1'))
+    checkSelected([1, 2, 3, 6, 7, 8], [4, 5, 9, 10])
+
+    fireEvent.click(screen.getByText('5'))
+    checkSelected([1, 2, 3, 6, 7, 8], [4, 5, 9, 10])
+  })
 })
