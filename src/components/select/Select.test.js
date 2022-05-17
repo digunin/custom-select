@@ -1,5 +1,6 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react'
 import Select from './Select'
+import { checkSelected } from '../app/App.test'
 
 describe('<Select /> render test', () => {
   let selectElement
@@ -48,12 +49,8 @@ describe('<Select /> render test', () => {
 
   test('check single selection', () => {
     fireEvent.click(screen.getByText('4'))
-    ;[1, 2, 3, 4].forEach((n) => {
-      expect(screen.getByText(`${n}`)).toHaveClass('option-selected')
-    })
-    ;[5].forEach((n) => {
-      expect(screen.getByText(`${n}`)).not.toHaveClass('option-selected')
-    })
+    checkSelected([1, 2, 3, 4], [5])
+
     cleanup()
     render(
       <Select
@@ -66,19 +63,10 @@ describe('<Select /> render test', () => {
       />
     )
     fireEvent.click(screen.getByText('4'))
-    ;[1, 2, 3, 5].forEach((n) => {
-      expect(screen.getByText(`${n}`)).not.toHaveClass('option-selected')
-    })
-    ;[4].forEach((n) => {
-      expect(screen.getByText(`${n}`)).toHaveClass('option-selected')
-    })
+    checkSelected([4], [1, 2, 3, 5])
+
     fireEvent.click(screen.getByText('1'))
-    ;[2, 3, 4, 5].forEach((n) => {
-      expect(screen.getByText(`${n}`)).not.toHaveClass('option-selected')
-    })
-    ;[1].forEach((n) => {
-      expect(screen.getByText(`${n}`)).toHaveClass('option-selected')
-    })
+    checkSelected([1], [2, 3, 4, 5])
   })
 
   test('chek "disabled" mode', () => {
@@ -96,19 +84,9 @@ describe('<Select /> render test', () => {
     )
     expect(screen.getByTestId('select-testid')).toHaveClass('select-disabled')
     fireEvent.click(screen.getByText('1'))
-    ;[1, 2, 3].forEach((n) => {
-      expect(screen.getByText(`${n}`)).toHaveClass('option-selected')
-    })
-    ;[4, 5].forEach((n) => {
-      expect(screen.getByText(`${n}`)).not.toHaveClass('option-selected')
-    })
+    checkSelected([1, 2, 3], [4, 5])
 
     fireEvent.click(screen.getByText('5'))
-    ;[1, 2, 3].forEach((n) => {
-      expect(screen.getByText(`${n}`)).toHaveClass('option-selected')
-    })
-    ;[4, 5].forEach((n) => {
-      expect(screen.getByText(`${n}`)).not.toHaveClass('option-selected')
-    })
+    checkSelected([1, 2, 3], [4, 5])
   })
 })

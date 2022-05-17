@@ -17,10 +17,14 @@
 }
 
 .option-element{
+    display: flex;
+    align-items: center;
     height: var(--option-height);
     padding: var(--option-pad);
+    padding-left: calc(var(--option-pad)*2);
     font-family: monospace;
     font-size: 0.8rem;
+    user-select: none
 }
 
 .option-element:nth-child(2n){
