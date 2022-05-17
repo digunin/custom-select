@@ -17,7 +17,6 @@ function App({ disabled = false, multiple = true }) {
         disabled={disabled}
         multiple={multiple}
       />
-      React
     </div>
   )
 }

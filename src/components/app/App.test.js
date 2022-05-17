@@ -46,11 +46,6 @@ describe('App render test', () => {
     appElement = null
   })
 
-  test('renders <App /> (by text)', () => {
-    appElement = screen.getByText(/react/i)
-    expect(appElement).toBeInTheDocument()
-  })
-
   test('renders <App /> (by test id)', () => {
     appElement = screen.queryByTestId('app-id')
     expect(appElement).toBeInTheDocument()
