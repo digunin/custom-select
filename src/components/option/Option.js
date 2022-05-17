@@ -1,8 +1,7 @@
-function Option({ value, text, onclick, isSelected = false }) {
-  let className = isSelected ? 'option-selected' : ''
+function Option({ value, text, onclick, className }) {
   return (
     <div
-      className={`option-element ${className}`}
+      className={className}
       onClick={(e) => onclick(value, text, e.shiftKey)}
       data-testid="single-option"
       value={value}

@@ -26,14 +26,16 @@ function Select({
       data-testid="select-testid"
     >
       {options.map(({ value, text }, i) => {
-        let selected = selectedValues.includes(value)
+        let className = selectedValues.includes(value)
+          ? 'option-element option-selected'
+          : 'option-element'
         return (
           <Option
             key={`${i}-${value}`}
             value={value}
             text={text}
             onclick={onclick}
-            isSelected={selected}
+            className={className}
           />
         )
       })}
