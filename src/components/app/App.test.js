@@ -1,4 +1,10 @@
-import { cleanup, fireEvent, render, screen } from '@testing-library/react'
+import {
+  cleanup,
+  fireEvent,
+  getByTestId,
+  render,
+  screen,
+} from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
 import App from './App'
 
@@ -199,5 +205,15 @@ describe('App render test', () => {
 
     fireEvent.click(screen.getByText('5'))
     checkSelected([1, 2, 3, 6, 7, 8], [4, 5, 9, 10])
+  })
+
+  test('check render with new props', () => {
+    checkSelected([1, 2, 3, 6, 7, 8], [4, 5, 9, 10])
+    fireEvent.click(screen.getByTestId('set-5-button'))
+    expect(screen.getAllByTestId('single-option').length).toBe(5)
+    checkSelected([2, 3, 5], [1, 4])
+    fireEvent.click(screen.getByTestId('set-10-button'))
+    expect(screen.getAllByTestId('single-option').length).toBe(10)
+    checkSelected([5, 6, 7, 8], [1, 2, 3, 4, 9, 10])
   })
 })
