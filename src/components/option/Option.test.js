@@ -20,14 +20,4 @@ describe('<Option /> render test', () => {
     expect(handleClick).toBeCalled()
     expect(handleClick).toBeCalledTimes(1)
   })
-  test('<Option /> class name', () => {
-    optionElement = screen.queryByTestId('single-option')
-    expect(optionElement).not.toHaveClass('option-selected')
-    cleanup()
-    render(
-      <Option text="two" value="1" onclick={handleClick} isSelected={true} />
-    )
-    optionElement = screen.queryByTestId('single-option')
-    expect(optionElement).toHaveClass('option-selected')
-  })
 })
