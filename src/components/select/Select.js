@@ -9,13 +9,7 @@ function Select({
   disabled = false,
   onchange,
 }) {
-  const { onclick } = useSelect(
-    options,
-    selectedValues,
-    onchange,
-    multiple,
-    disabled
-  )
+  const { onclick } = useSelect(selectedValues, onchange, multiple, disabled)
   return (
     <div
       style={{
@@ -24,6 +18,9 @@ function Select({
       }}
       className={disabled ? 'select-input select-disabled' : 'select-input'}
       data-testid="select-testid"
+      onClick={(e) => {
+        onclick(+e.target.attributes.value.value, e.shiftKey)
+      }}
     >
       {options.map(({ value, text }, i) => {
         let className = selectedValues.includes(value)
@@ -34,7 +31,6 @@ function Select({
             key={`${i}-${value}`}
             value={value}
             text={text}
-            onclick={onclick}
             className={className}
           />
         )

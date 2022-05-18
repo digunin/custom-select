@@ -13,11 +13,4 @@ describe('<Option /> render test', () => {
     optionElement = screen.queryByTestId('single-option')
     expect(optionElement).toBeInTheDocument()
   })
-  test('<Option /> clicked', () => {
-    optionElement = screen.queryByTestId('single-option')
-    expect(handleClick).not.toBeCalled()
-    optionElement.click()
-    expect(handleClick).toBeCalled()
-    expect(handleClick).toBeCalledTimes(1)
-  })
 })

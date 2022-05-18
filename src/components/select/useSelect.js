@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-function useSelect(options, selectedValues, onchange, multiple, disabled) {
+function useSelect(selectedValues, onchange, multiple, disabled) {
   const [lastValue, setLastValue] = useState(false)
 
   function toggleValue(value) {
@@ -18,7 +18,7 @@ function useSelect(options, selectedValues, onchange, multiple, disabled) {
   //   setLastValue(false)
   // }, [JSON.stringify(selectedValues)])
 
-  function onclick(value, text, shiftKey) {
+  function onclick(value, shiftKey) {
     if (disabled) {
       return
     }
