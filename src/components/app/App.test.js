@@ -25,6 +25,10 @@ describe('App render test', () => {
   function renderAndResetSelected() {
     cleanup()
     render(<App />)
+    resetSelected()
+  }
+
+  function resetSelected() {
     selected_text.forEach((text) => {
       act(() => {
         screen.getByText(text).click()
@@ -215,5 +219,81 @@ describe('App render test', () => {
     fireEvent.click(screen.getByTestId('set-10-button'))
     expect(screen.getAllByTestId('single-option').length).toBe(10)
     checkSelected([5, 6, 7, 8], [1, 2, 3, 4, 9, 10])
+  })
+
+  test('selectedValues must be sorted', () => {
+    expect(screen.getByTestId('label-id').textContent).toBe('-0,1,2,5,6,7-')
+    resetSelected()
+    expect(screen.getByTestId('label-id').textContent).toBe('--')
+    fireEvent.click(screen.getByText('1'))
+    fireEvent.click(screen.getByText('7'), { shiftKey: true })
+    expect(screen.getByTestId('label-id').textContent).toBe('-0,1,2,3,4,5,6-')
+
+    renderAndResetSelected()
+    expect(screen.getByTestId('label-id').textContent).toBe('--')
+    fireEvent.click(screen.getByText('4'))
+    fireEvent.click(screen.getByText('10'), { shiftKey: true })
+    expect(screen.getByTestId('label-id').textContent).toBe('-3,4,5,6,7,8,9-')
+
+    renderAndResetSelected()
+    expect(screen.getByTestId('label-id').textContent).toBe('--')
+    fireEvent.click(screen.getByText('10'))
+    fireEvent.click(screen.getByText('1'), { shiftKey: true })
+    expect(screen.getByTestId('label-id').textContent).toBe(
+      '-0,1,2,3,4,5,6,7,8,9-'
+    )
+
+    renderAndResetSelected()
+    expect(screen.getByTestId('label-id').textContent).toBe('--')
+    fireEvent.click(screen.getByText('8'))
+    fireEvent.click(screen.getByText('7'))
+    fireEvent.click(screen.getByText('6'))
+    fireEvent.click(screen.getByText('5'))
+    fireEvent.click(screen.getByText('4'))
+    expect(screen.getByTestId('label-id').textContent).toBe('-3,4,5,6,7-')
+
+    renderAndResetSelected()
+    expect(screen.getByTestId('label-id').textContent).toBe('--')
+    fireEvent.click(screen.getByText('8'))
+    fireEvent.click(screen.getByText('3'))
+    fireEvent.click(screen.getByText('10'))
+    fireEvent.click(screen.getByText('1'))
+    fireEvent.click(screen.getByText('4'))
+    expect(screen.getByTestId('label-id').textContent).toBe('-0,2,3,7,9-')
+
+    renderAndResetSelected()
+    expect(screen.getByTestId('label-id').textContent).toBe('--')
+    fireEvent.click(screen.getByText('4'))
+    fireEvent.click(screen.getByText('8'))
+    fireEvent.click(screen.getByText('1'))
+    fireEvent.click(screen.getByText('6'))
+    fireEvent.click(screen.getByText('2'), { shiftKey: true })
+    expect(screen.getByTestId('label-id').textContent).toBe('-0,1,2,3,4,5,7-')
+
+    renderAndResetSelected()
+    expect(screen.getByTestId('label-id').textContent).toBe('--')
+    fireEvent.click(screen.getByText('1'))
+    fireEvent.click(screen.getByText('7'))
+    fireEvent.click(screen.getByText('5'))
+    fireEvent.click(screen.getByText('3'), { shiftKey: true })
+    expect(screen.getByTestId('label-id').textContent).toBe('-0,2,3,4,6-')
+
+    renderAndResetSelected()
+    expect(screen.getByTestId('label-id').textContent).toBe('--')
+    fireEvent.click(screen.getByText('4'))
+    fireEvent.click(screen.getByText('5'))
+    fireEvent.click(screen.getByText('4'))
+    fireEvent.click(screen.getByText('9'), { shiftKey: true })
+    expect(screen.getByTestId('label-id').textContent).toBe('-4,5,6,7,8-')
+
+    renderAndResetSelected()
+    expect(screen.getByTestId('label-id').textContent).toBe('--')
+    fireEvent.click(screen.getByText('2'))
+    fireEvent.click(screen.getByText('10'))
+    fireEvent.click(screen.getByText('8'))
+    fireEvent.click(screen.getByText('7'))
+    fireEvent.click(screen.getByText('10'))
+    fireEvent.click(screen.getByText('4'), { shiftKey: true })
+    expect(screen.getByTestId('label-id').textContent).toBe('-1,3,4,5,6,7,8-')
   })
 })

@@ -36,6 +36,8 @@ function App({ disabled = false, multiple = true }) {
         disabled={disabled}
         multiple={multiple}
       />
+      <br />
+      <label data-testid="label-id">{`-${selectedValues.join(',')}-`}</label>
     </div>
   )
 }
