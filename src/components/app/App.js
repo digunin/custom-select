@@ -3,7 +3,14 @@ import Select from '../select/Select'
 import { mockOptions } from '../../utils'
 
 function App({ disabled = false, multiple = true }) {
-  const [selectedValues, setSelectedValues] = useState([0, 1, 2, 5, 6, 7])
+  const [selectedValues, setSelectedValues] = useState([
+    'V-1',
+    'V-2',
+    'V-3',
+    'V-6',
+    'V-7',
+    'V-8',
+  ])
   const [options, setOptions] = useState(mockOptions)
 
   const handleClick = (arr) => {
@@ -15,7 +22,7 @@ function App({ disabled = false, multiple = true }) {
         data-testid="set-10-button"
         onClick={() => {
           setOptions(mockOptions)
-          setSelectedValues([4, 5, 6, 7])
+          setSelectedValues(['V-5', 'V-6', 'V-7', 'V-8'])
         }}
       >{`set 10 old selected`}</button>
       <br />
@@ -24,7 +31,7 @@ function App({ disabled = false, multiple = true }) {
         data-testid="set-5-button"
         onClick={() => {
           setOptions(mockOptions.slice(0, 5))
-          setSelectedValues([1, 2, 4])
+          setSelectedValues(['V-2', 'V-3', 'V-5'])
         }}
       >{`set 5 new options`}</button>
       <br />

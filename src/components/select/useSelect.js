@@ -1,8 +1,22 @@
 import { useState } from 'react'
 import { toggleValue, insertSubarray } from '../../utils'
 
-function useSelect(selectedValues, onchange, multiple, disabled) {
+function useSelect(options, selectedValues, onchange, multiple, disabled) {
   const [lastValue, setLastValue] = useState(false)
+
+  let valuesIndexes = {}
+  options.forEach((option, i) => {
+    let key = Array.isArray(option) ? option[0] : option
+    valuesIndexes[key] = i
+  })
+
+  let selectedIndexes = selectedValues.map((value) => valuesIndexes[value])
+
+  function getNewValues(newIndexes) {
+    return Object.entries(valuesIndexes)
+      .filter(([_, index]) => newIndexes.includes(index))
+      .map(([value, _]) => value)
+  }
 
   function onclick(value, shiftKey) {
     if (disabled) {
@@ -10,13 +24,14 @@ function useSelect(selectedValues, onchange, multiple, disabled) {
     }
 
     if (!multiple) {
+      console.log(value)
       onchange([value])
       return
     }
 
     if (shiftKey && lastValue !== false) {
-      let start = lastValue
-      let end = value
+      let start = valuesIndexes[lastValue]
+      let end = valuesIndexes[value]
 
       if (!selectedValues.includes(lastValue)) {
         if (start < end) {
@@ -34,10 +49,15 @@ function useSelect(selectedValues, onchange, multiple, disabled) {
       for (let i = start; i <= end; i++) acc.push(i)
 
       setLastValue(false)
-      onchange(insertSubarray(selectedValues, acc))
+      let newSelectedIndexes = insertSubarray(selectedIndexes, acc)
+      onchange(getNewValues(newSelectedIndexes))
     } else {
       setLastValue(value)
-      onchange(toggleValue(selectedValues, value))
+      let newSelectedIndexes = toggleValue(
+        selectedIndexes,
+        valuesIndexes[value]
+      )
+      onchange(getNewValues(newSelectedIndexes))
     }
   }
 

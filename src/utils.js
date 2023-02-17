@@ -1,14 +1,14 @@
 export const mockOptions = [
-  { value: 0, text: '1' },
-  { value: 1, text: '2' },
-  { value: 2, text: '3' },
-  { value: 3, text: '4' },
-  { value: 4, text: '5' },
-  { value: 5, text: '6' },
-  { value: 6, text: '7' },
-  { value: 7, text: '8' },
-  { value: 8, text: '9' },
-  { value: 9, text: '10' },
+  ['V-1', '1'],
+  ['V-2', '2'],
+  ['V-3', '3'],
+  ['V-4', '4'],
+  ['V-5', '5'],
+  ['V-6', '6'],
+  ['V-7', '7'],
+  ['V-8', '8'],
+  ['V-9', '9'],
+  ['V10', '10'],
 ]
 
 export function toggleValue(arr, value) {
