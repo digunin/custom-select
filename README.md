@@ -1,70 +1,26 @@
-# Getting Started with Create React App
+## Замена нативного html-тега select.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- Является управляемым react-компонентом
+- Всегда отображается как раскрытый список
+- Допускает как множественный выбор, так и единичный
+- Возвращает выбранные значения в том порядке, в каком они были переданы
+- Для выбора нескольких опций не нужно удерживать клавишу CTRL
+- Работает выделение диапазона через SHIFT
 
-## Available Scripts
+### Использование
 
-In the project directory, you can run:
+Скопируйте в свой проект файл `Select.js` из папки `dist`. Элемент `Select` экспортируется по умолчанию, импортируйте его и используйте. Так же подключите css файл из папки dist, либо вставьте его содержимое в свой файл со стилями. По желанию измените значения констант (например, цвета) в селекторе :root
+```
+import SelectForYourProject from '@path to file/Select'
+```
 
-### `npm start`
+### Пропсы
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Свойство |Тип|Описание|По умолчанию
+-:|:-:|:-|:-:
+`options`|Array|Массив опций вида [value, text]. Если `text` отсутствует, то вместо него будет использовано `value`. Если элементами `options` являются примитивы, то они будут использованы и как `value`, и как `text` |[]
+`selectedValues`|Array|Массив значений, которые будут отображаться как выбранные|[]
+`size`|Number|Высота списка в строках|10
+`multiple`|boolean|`true` - множественный выбор, `false` - одиночный|true
+`disabled`|boolean|Если `true` - компонент не реагирует на клики|false
+`onchange`|function|Вызывается при каждом клике и получает массив выбранных значений|
